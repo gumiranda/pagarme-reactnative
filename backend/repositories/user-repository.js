@@ -6,7 +6,7 @@ const base = require('../bin/base/repository-base');
 class userRepository {
   constructor() {
     this._base = new base('User');
-    this._projection = 'nome email payDay type';
+    this._projection = 'nome email payDay type cpf phone';
   }
 
   async authenticate(Email, Senha, flag) {
@@ -36,6 +36,14 @@ class userRepository {
 
   async updatePayment(data, userid) {
     return await this._base.update(userid, { payDay: data });
+  }
+  async completeRegister(data, userid) {
+    await this._base.update(userid, data);
+    const userR = await this._base._model.findOne(
+      { _id: userid },
+      this._projection,
+    );
+    return userR;
   }
 
   async update(id, data, usuarioLogado) {

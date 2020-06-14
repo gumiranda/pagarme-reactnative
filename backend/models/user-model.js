@@ -10,7 +10,9 @@ const userModel = new schema(
   {
     nome: { trim: true, index: true, required: true, type: String },
     email: { type: String },
-	type: { type: String,default:'client' },
+    type: { type: String, default: 'client' },
+    cpf: { type: String },
+    phone: { type: String },
     senha: { type: String },
     ativo: { type: Boolean, required: true, default: true },
     payDay: { type: Date, default: Date.now },

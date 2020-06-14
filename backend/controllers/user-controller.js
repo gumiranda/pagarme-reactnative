@@ -70,12 +70,37 @@ userController.prototype.put = async (req, res) => {
         `Já existe o email ${req.body.email} cadastrado no banco de dados`,
       );
     }
-    ctrlBase.put(_repo, _validationContract, req, res);
+    if (req.usuarioLogado.user._id.toString() === req.params.id) {
+      ctrlBase.put(_repo, _validationContract, req, res);
+    } else {
+      res.status(401).send({ message: 'Você não tem permissão' });
+    }
   } catch (e) {
     res.status(500).send({ message: 'Internal server error', error: e });
   }
 };
-
+userController.prototype.completeRegister = async (req, res) => {
+  try {
+    const validationContract = new validation();
+    validationContract.isRequired(req.body.cpf, 'Informe seu cpf pentelho');
+    validationContract.isRequired(req.body.phone, 'Informe seu phone pentelho');
+    if (!validationContract.isValid()) {
+      req
+        .status(400)
+        .send({
+          message: 'Existem dados inválido na sua requisição',
+          validation: validationContract.errors(),
+        })
+        .end();
+      return;
+    }
+    const data = req.body;
+    const user = await _repo.completeRegister(data, req.usuarioLogado.user._id);
+    res.status(200).send(user);
+  } catch (e) {
+    res.status(500).send({ message: 'Internal server error', error: e });
+  }
+};
 userController.prototype.get = async (req, res) => {
   ctrlBase.get(_repo, req, res);
 };
@@ -118,15 +143,13 @@ userController.prototype.authenticate = async (req, res) => {
       .send({ message: 'Usuario ou senha informados são inválidos' });
   }
   if (usuarioEncontrado) {
-    res
-      .status(200)
-      .send({
-        usuario: usuarioEncontrado,
-        token: jwt.sign(
-          { user: usuarioEncontrado },
-          variables.Security.secretKey,
-        ),
-      });
+    res.status(200).send({
+      usuario: usuarioEncontrado,
+      token: jwt.sign(
+        { user: usuarioEncontrado },
+        variables.Security.secretKey,
+      ),
+    });
   } else {
     res
       .status(404)

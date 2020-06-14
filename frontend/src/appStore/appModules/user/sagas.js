@@ -21,7 +21,7 @@ export function* updateProfile({payload}) {
       senha,
       senhaConfirmacao,
     };
-    console.tron.log(profile);
+
     const response = yield call(api.put, `user/${profile._id}`, profile);
     if (response.data.message) {
       Alert.alert('Erro', response.data.message);
