@@ -8,7 +8,7 @@ export const Title = styled.Text`
   color: ${appColors.white};
   font-weight: bold;
   align-self: center;
-  margin-vertical: 15px;
+  margin-vertical: 5px;
 `;
 export const Container = styled.SafeAreaView`
   font-size: 20px;
@@ -19,7 +19,7 @@ export const Container = styled.SafeAreaView`
 `;
 export const Form = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
-  contentContainerStyle: {padding: 30},
+  contentContainerStyle: {padding: 5},
 })`
   align-self: stretch;
 `;
@@ -29,4 +29,5 @@ export const FormInput = styled(Input)`
 
 export const SubmitButton = styled(Button)`
   margin-top: 5px;
+  border-radius: 4px;
 `;

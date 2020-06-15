@@ -18,7 +18,7 @@ function Input({style, typeMask, typeInput, icon, ...rest}, ref) {
           options={{maskType: 'BRL', withDDD: true, dddMask: '55(99)'}}
           ref={ref}
           placeholderTextColor={appColors.black}
-          style={{flex: 1, fontSize: 15, marginLeft: 10, color: '#333'}}
+          style={{flex: 1, fontSize: 15, color: '#333'}}
         />
       ) : typeInput === 'mask' && typeMask === 'cpf' ? (
         <TextInputMask
@@ -26,7 +26,7 @@ function Input({style, typeMask, typeInput, icon, ...rest}, ref) {
           type="cpf"
           ref={ref}
           placeholderTextColor={appColors.black}
-          style={{flex: 1, fontSize: 15, marginLeft: 10, color: '#333'}}
+          style={{flex: 1, fontSize: 15, color: '#333'}}
         />
       ) : typeInput === 'mask' && typeMask === 'cnpj' ? (
         <TextInputMask
@@ -34,7 +34,7 @@ function Input({style, typeMask, typeInput, icon, ...rest}, ref) {
           type="cnpj"
           placeholderTextColor={appColors.black}
           ref={ref}
-          style={{flex: 1, fontSize: 15, marginLeft: 10, color: '#333'}}
+          style={{flex: 1, fontSize: 15, color: '#333'}}
         />
       ) : typeInput === 'mask' && typeMask === 'cep' ? (
         <TextInputMask
@@ -43,11 +43,11 @@ function Input({style, typeMask, typeInput, icon, ...rest}, ref) {
           options={{mask: '99999-999'}}
           placeholderTextColor={appColors.black}
           ref={ref}
-          style={{flex: 1, fontSize: 15, marginLeft: 10, color: '#333'}}
+          style={{flex: 1, fontSize: 15, color: '#333'}}
         />
       ) : (
         <TextInput
-          style={{flex: 1, fontSize: 15, marginLeft: 10, color: '#333'}}
+          style={{flex: 1, fontSize: 15, color: '#333'}}
           placeholderTextColor={appColors.black}
           {...rest}
           ref={ref}

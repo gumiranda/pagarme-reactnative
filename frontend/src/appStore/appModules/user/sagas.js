@@ -39,5 +39,32 @@ export function* updateProfile({payload}) {
     yield put(updateProfileFailure());
   }
 }
+export function* completeProfile({payload}) {
+  try {
+    const {cpf, phone} = payload.data;
+    const profile = {
+      cpf,
+      phone,
+    };
+    const response = yield call(api.put, `user/completeRegister`, profile);
+    if (response.data.message) {
+      Alert.alert('Erro', response.data.message);
+      yield put(updateProfileFailure());
+    } else if (response.data) {
+      Alert.alert('Sucesso', 'Perfil atualizado com sucesso');
+      yield put(updateProfileSuccess(response.data));
+    } else {
+      Alert.alert('Erro', 'Confira seus dados');
+      yield put(updateProfileFailure());
+    }
+  } catch (err) {
+    console.tron.log(err);
+    Alert.alert('Erro', 'Confira seus dados');
+    yield put(updateProfileFailure());
+  }
+}
 
-export default all([takeLatest('@user/UPDATE_PROFILE_REQUEST', updateProfile)]);
+export default all([
+  takeLatest('@user/UPDATE_PROFILE_REQUEST', updateProfile),
+  takeLatest('@user/COMPLETE_PROFILE_REQUEST', completeProfile),
+]);
