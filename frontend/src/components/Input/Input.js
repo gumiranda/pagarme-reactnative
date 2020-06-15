@@ -15,8 +15,9 @@ function Input({style, typeMask, typeInput, icon, ...rest}, ref) {
         <TextInputMask
           {...rest}
           type="cel-phone"
-          options={{maskType: 'BRL', withDDD: true, dddMask: '(99)'}}
+          options={{maskType: 'BRL', withDDD: true, dddMask: '55(99)'}}
           ref={ref}
+          placeholderTextColor={appColors.black}
           style={{flex: 1, fontSize: 15, marginLeft: 10, color: '#333'}}
         />
       ) : typeInput === 'mask' && typeMask === 'cpf' ? (
@@ -24,12 +25,23 @@ function Input({style, typeMask, typeInput, icon, ...rest}, ref) {
           {...rest}
           type="cpf"
           ref={ref}
+          placeholderTextColor={appColors.black}
           style={{flex: 1, fontSize: 15, marginLeft: 10, color: '#333'}}
         />
       ) : typeInput === 'mask' && typeMask === 'cnpj' ? (
         <TextInputMask
           {...rest}
           type="cnpj"
+          placeholderTextColor={appColors.black}
+          ref={ref}
+          style={{flex: 1, fontSize: 15, marginLeft: 10, color: '#333'}}
+        />
+      ) : typeInput === 'mask' && typeMask === 'cep' ? (
+        <TextInputMask
+          {...rest}
+          type="custom"
+          options={{mask: '99999-999'}}
+          placeholderTextColor={appColors.black}
           ref={ref}
           style={{flex: 1, fontSize: 15, marginLeft: 10, color: '#333'}}
         />

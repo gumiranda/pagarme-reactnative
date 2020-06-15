@@ -9,6 +9,10 @@ import {createDrawerNavigator} from 'react-navigation-drawer';
 import appMetrics from '../../utils/appMetrics';
 import {signOut} from '../../appStore/appModules/auth/actions';
 import Profile from '../../screens/Profile/Profile';
+import Home from '../../screens/Home/Home';
+import PaymentAddress from '../../screens/Payment/PaymentAddress/PaymentAddress';
+import PaymentCart from '../../screens/Payment/PaymentCart/PaymentCart';
+import CompleteRegister from '../../screens/Payment/CompleteRegister/CompleteRegister';
 import {appColors} from '../../utils/appColors';
 
 function Logout() {
@@ -19,22 +23,30 @@ function Logout() {
   return <></>;
 }
 
-const drawerButton = navigation => (
-  <Icon
-    style={{padding: 10, color: appColors.white}}
-    name="three-bars"
-    size={30}
-    color={appColors.black}
-    onPress={() => {
-      navigation.toggleDrawer();
-    }}
-  />
-);
 const RootStack = createDrawerNavigator(
   {
+    Home: {
+      screen: Home,
+      navigationOptions: () => ({drawerLabel: 'Inicio'}),
+    },
     Profile: {
       screen: Profile,
       navigationOptions: () => ({drawerLabel: 'Meu perfil'}),
+    },
+    CompleteRegister: {
+      screen: createStackNavigator({
+        CompleteRegister,
+        PaymentAddress,
+        PaymentCart,
+      }),
+      navigationOptions: () => ({drawerLabel: 'Completar registro'}),
+    },
+    Payment: {
+      screen: createStackNavigator({
+        PaymentAddress,
+        PaymentCart,
+      }),
+      navigationOptions: () => ({drawerLabel: 'Pagamento'}),
     },
     Logout: {
       screen: Logout,
@@ -42,7 +54,7 @@ const RootStack = createDrawerNavigator(
     },
   },
   {
-    initialRouteName: 'Profile',
+    initialRouteName: 'Home',
     headerMode: 'float',
     navigationOptions: ({navigation}) => ({
       headerBackground: () => (
